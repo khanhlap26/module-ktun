@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="LAPBUFFXU TẢI " />
+  <meta name="description" content="LAPBUFFXU DOWNLOAD" />
   <title>Tải phần mềm</title>
 
   <style>
@@ -126,10 +128,11 @@
       font-size: 18px;
     }
 
-    video {
+    #softwareVideo {
       display: block;
       width: 100%;
-      max-height: 560px;
+      aspect-ratio: 16 / 9;
+      border: 0;
       border-radius: 14px;
       background: #000;
     }
@@ -210,7 +213,7 @@
 <body>
   <main class="container">
     <div class="topbar">
-      <div class="logo" id="siteName">SOFTWARE DOWNLOAD</div>
+      <div class="logo" id="siteName">LAPBUFFXU DOWNLOAD</div>
 
       <div class="status">
         <span class="status-dot"></span>
@@ -221,7 +224,7 @@
     <article class="card">
       <section class="hero">
         <div class="badge">BẢN TẢI CHÍNH THỨC</div>
-        <h1 id="softwareName">Tên phần mềm</h1>
+        <h1 id="softwareName">CA Tủn Module</h1>
         <p class="description" id="softwareDescription"></p>
       </section>
 
@@ -229,9 +232,12 @@
         <section class="section">
           <h2 class="section-title">▶ Video hướng dẫn</h2>
 
-          <video id="softwareVideo" controls preload="metadata">
-            Trình duyệt của bạn không hỗ trợ video.
-          </video>
+          <iframe
+            id="softwareVideo"
+            title="Video hướng dẫn"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
         </section>
 
         <section class="section download-area">
@@ -264,22 +270,26 @@
   </main>
 
   <script>
- 
-
+    /*
+      PHẦN ADMIN
+      Chỉ cần sửa thông tin trong const SOFTWARE bên dưới.
+    */
 
     const SOFTWARE = {
-      siteName: "LAPBUFFXU DOWNLOAD ",
+      siteName: "LAPBUFFXU DOWNLOAD",
 
-      name: "CA Tủn Module ",
+      name: "CA Tủn Module",
 
       description:
         "Xem video hướng dẫn bên dưới trước khi tải và sử dụng phần mềm.",
 
-      // File video đặt chung thư mục với index.html
-      videoFile: "https://drive.google.com/file/d/1Xn4tQWoCqoDuieD3y1mbRHro0em24jls/view?usp=drive_link",
+      // Link Google Drive phải kết thúc bằng /preview
+      videoFile:
+        "https://drive.google.com/file/d/1Xn4tQWoCqoDuieD3y1mbRHro0em24jls/preview",
 
-      // Có thể dùng file cùng thư mục hoặc link Google Drive, MediaFire...
-      downloadLink: "https://www.mediafire.com/file/7otpl5xsm34o194/module-ktn.zip/file",
+      // Link tải MediaFire
+      downloadLink:
+        "https://www.mediafire.com/file/7otpl5xsm34o194/module-ktn.zip/file",
 
       downloadDescription:
         "Nhấn nút Tải ngay để tải phiên bản mới nhất.",
@@ -299,10 +309,16 @@
     document.getElementById("softwareDescription").textContent = SOFTWARE.description;
     document.getElementById("softwareVideo").src = SOFTWARE.videoFile;
     document.getElementById("downloadButton").href = SOFTWARE.downloadLink;
-    document.getElementById("downloadDescription").textContent = SOFTWARE.downloadDescription;
+    document.getElementById("downloadDescription").textContent =
+      SOFTWARE.downloadDescription;
     document.getElementById("noticeText").textContent = SOFTWARE.notice;
     document.getElementById("footerName").textContent = SOFTWARE.footerName;
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/index-fixed.html")
+path.write_text(html, encoding="utf-8")
+print(f"Đã tạo file: {path}")
